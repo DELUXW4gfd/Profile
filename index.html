@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>profile-Delux</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Rubik', sans-serif;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(40, 20, 80, 0.88), rgba(60, 30, 90, 0.75));
+      z-index: -1;
+      backdrop-filter: blur(2px);
+    }
+
+    body {
+      color: #f0f0f0;
+      padding: 50px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 30px;
+    }
+
+    .glass-card {
+      background: rgba(25, 15, 40, 0.85);
+      backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(150, 100, 200, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7),
+                  0 0 30px rgba(120, 50, 200, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border-color: rgba(150, 100, 200, 0.3);
+    }
+
+    .profile-section {
+      text-align: center;
+    }
+
+    .profile-image-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid rgba(120, 50, 200, 0.8);
+      box-shadow: 0 10px 40px rgba(120, 50, 200, 0.5),
+                  0 0 50px rgba(150, 80, 230, 0.3);
+      transition: all 0.4s ease;
+      object-fit: cover;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.08);
+      border-color: rgba(150, 80, 230, 0.9);
+      box-shadow: 0 15px 50px rgba(120, 50, 200, 0.7),
+                  0 0 70px rgba(150, 80, 230, 0.5);
+    }
+
+    .profile-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-bio {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #d0d0d0;
+      margin-bottom: 25px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, rgba(80, 50, 120, 0.9), rgba(100, 60, 150, 0.8));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(150, 100, 200, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-btn:hover {
+      background: linear-gradient(135deg, rgba(120, 50, 200, 0.95), rgba(150, 80, 230, 0.9));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(120, 50, 200, 0.5);
+      border-color: rgba(150, 100, 200, 0.4);
+    }
+
+    .social-btn i {
+      font-size: 20px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tech-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .tech-item {
+      background: linear-gradient(135deg, rgba(45, 30, 70, 0.8), rgba(60, 40, 90, 0.7));
+      border-radius: 12px;
+      border-right: 4px solid rgba(120, 50, 200, 0.7);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .tech-item:hover {
+      transform: translateX(-8px);
+      border-right-color: rgba(150, 80, 230, 0.9);
+      background: linear-gradient(135deg, rgba(60, 40, 90, 0.9), rgba(80, 55, 110, 0.8));
+      box-shadow: 0 4px 20px rgba(120, 50, 200, 0.4);
+    }
+
+    .tech-item a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      padding: 14px 20px;
+      width: 100%;
+    }
+
+    .tech-item a::after {
+      content: "←";
+      font-size: 20px;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+    }
+
+    .tech-item:hover a::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .project-grid {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .project-card {
+      background: linear-gradient(135deg, rgba(45, 30, 70, 0.8), rgba(60, 40, 90, 0.7));
+      border-radius: 14px;
+      border-right: 4px solid rgba(120, 50, 200, 0.7);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-size: 16px;
+    }
+
+    .project-card:hover {
+      transform: translateX(-8px);
+      border-right-color: rgba(150, 80, 230, 0.9);
+      background: linear-gradient(135deg, rgba(60, 40, 90, 0.9), rgba(80, 55, 110, 0.8));
+      box-shadow: 0 4px 20px rgba(120, 50, 200, 0.4);
+    }
+
+    .project-card a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      padding: 18px 24px;
+      width: 100%;
+    }
+
+    .project-card a::after {
+      content: "←";
+      font-size: 20px;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover a::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      .glass-card {
+        padding: 25px;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
+
+      .profile-name {
+        font-size: 26px;
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .social-links {
+        gap: 10px;
+      }
+
+      .social-btn {
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="img/background.mp4.mp4" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
+  <div class="container">
+    
+    <section class="glass-card profile-section">
+      <div class="profile-image-wrapper">
+        <img src="img/pic1.png" alt="Profile Picture" class="profile-image">
+      </div>
+      <h1 class="profile-name">Delux</h1>
+      <p class="profile-bio"></p>
+      <div class="social-links">
+        <!-- <a href="https://github.com/" target="_blank" class="social-btn">
+          <span>GitHub</span>
+          <i class="bi bi-github"></i>
+        </a> -->
+        <a href="https://www.instagram.com/oriel_kaspi/" target="_blank" class="social-btn">
+          <span>Instagram</span>
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@delux_dk" target="_blank" class="social-btn">
+          <span>TikTok</span>
+          <i class="bi bi-tiktok"></i>
+        </a>
+      </div>
+    </section>
+
+    <section class="glass-card">
+      <h2 class="section-title">
+        <span>💻</span>
+        <span>servers</span>
+      </h2>
+      <div class="tech-list">
+        <div class="tech-item"><a href="https://discord.gg/C95ARKbHbN" target="_blank">rz-leaks</a></div>
+        <div class="tech-item"><a href="https://discord.gg/HtckFgcQBq" target="_blank">nova-list</a></div>
+        <div class="tech-item"><a href="https://discord.gg/cEyErxes7K" target="_blank">B&H</a></div>
+      </div>
+    </section>
+
+    <section class="glass-card">
+      <!-- <h2 class="section-title">
+        <span>🎥</span>
+        <span>highlights</span>
+      </h2> -->
+      <div class="video-wrapper">
+        <video width="100%" height="100%" autoplay muted loop>
+          <source src="img/background.mp4.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section>
+
+    <section class="glass-card">
+      <h2 class="section-title">
+        <span>🚀</span>
+        <span>youtubers servers</span>
+      </h2>
+      <div class="project-grid">
+        <div class="project-card"><a href="https://discord.gg/c3aMu6JreB" target="_blank">Dryzex</a></div>
+        <div class="project-card"><a href="https://discord.gg/xs3H5Ks6HR" target="_blank">Blckkitty</a></div>
+      </div>
+    </section>
+
+  </div>
+  
+  <footer>
+    <p style="margin: 10px; text-align: center;">© 2025 Delux. כל הזכויות שמורות.</p>
+  </footer>
+  
+</body>
+</html>
